@@ -1,0 +1,9 @@
+<div>
+    <input #inputSelect (click)="toggleShow()" class="form-control" type="text" [attr.value]="label">
+    <div #listGroup class="mh300px list-container hide">
+        <ul class="list-group">
+            <li [id]="value" (click)="selectValue(value)" *ngFor="let value of values" class="list-group-item">{{value}}</li>
+        </ul>
+    </div>
+</div>
+<div #selectBackdrop (click)="toggleShow()" class="select-backdrop hide"></div>
