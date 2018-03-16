@@ -3,7 +3,6 @@
 }
 .list-container{
     position: absolute;
-    overflow-y: scroll;
     overflow-x: hidden;
     z-index: 2010;
 }
@@ -21,6 +20,7 @@
 .list-group-item:first-child {
     border-top-left-radius: .25rem;
     border-top-right-radius: .25rem;
+    border-top: 1px solid rgba(0,0,0,.125);
 }
 .list-group-item {
     position: relative;
@@ -37,6 +37,7 @@
     margin-bottom: 0;
     border-bottom-right-radius: .25rem;
     border-bottom-left-radius: .25rem;
+    border-bottom: 1px solid rgba(0,0,0,.125);
 }
 .select-backdrop{
     position: fixed;

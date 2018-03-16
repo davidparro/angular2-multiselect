@@ -6,16 +6,17 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
   styleUrls: ['./multiselect.component.scss']
 })
 export class MultiselectComponent implements OnInit  {
-    @Input('values') values;
-    @Input('customLabel') customLabel = 'Select values';
-    @Input('customMaxLabel') customMaxLabel = 'items selected';
-    @Input('width') width;
-    @Input('height') height = '200px';
-    @Input('backgroundSelected') backgroundSelected = 'rgb(183, 255, 115)';
-    @Input('backgroundRemoved') backgroundRemoved = 'white';
-    @Input('colorSelected') colorSelected = 'inherit';
-    @Input('colorRemoved') colorRemoved = 'inherit';
-    @Input('maxLabelItems') maxLabelItems = 1;
+    @Input('values') values; // Array of values for options
+    @Input('labels') labels; // Array of labels for options
+    @Input('customLabel') customLabel = 'Select values'; // Custom label when no one option is selected
+    @Input('customMaxLabel') customMaxLabel = 'items selected'; // Custom label when max label items is active
+    @Input('maxLabelItems') maxLabelItems = 1; // Max items to show in input
+    @Input('width') width; // Width of options list
+    @Input('maxHeight') maxHeight = '200px'; // Max height of options list
+    @Input('backgroundSelected') backgroundSelected = 'rgb(183, 255, 115)'; // Background of option selected
+    @Input('backgroundRemoved') backgroundRemoved = 'white'; // Background of option removed
+    @Input('colorSelected') colorSelected = 'inherit'; // Color of option selected
+    @Input('colorRemoved') colorRemoved = 'inherit'; // Color of option removed
     @ViewChild('listGroup') listGroup: ElementRef;
     @ViewChild('inputSelect') inputSelect: ElementRef;
     @ViewChild('selectBackdrop') selectBackdrop: ElementRef;
@@ -33,7 +34,10 @@ export class MultiselectComponent implements OnInit  {
         } else {
             this.listGroup.nativeElement.style.width = this.inputSelect.nativeElement.offsetWidth + 'px';
         }
-        this.listGroup.nativeElement.style.height = this.height;
+        if (!this.labels) {
+            this.labels = this.values;
+        }
+        this.listGroup.nativeElement.style.maxHeight = this.maxHeight;
     }
 
     toggleShow() {
@@ -77,5 +81,9 @@ export class MultiselectComponent implements OnInit  {
         } else {
             return false;
         }
+    }
+
+    onResize(event) {
+        this.listGroup.nativeElement.style.width = this.inputSelect.nativeElement.offsetWidth + 'px';
     }
 }
