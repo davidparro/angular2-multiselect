@@ -6,8 +6,8 @@ import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter }
   styleUrls: ['./multiselect.component.scss']
 })
 export class MultiselectComponent implements OnInit  {
-    @Input('values') values; // Array of values for options
-    @Input('labels') labels; // Array of labels for options
+    @Input('values') values = []; // Array of values for options
+    @Input('labels') labels = []; // Array of labels for options
     @Input('customLabel') customLabel = 'Select values'; // Custom label when no one option is selected
     @Input('customMaxLabel') customMaxLabel = 'items selected'; // Custom label when max label items is active
     @Input('maxLabelItems') maxLabelItems = 1; // Max items to show in input
@@ -23,19 +23,36 @@ export class MultiselectComponent implements OnInit  {
     @Output() sendValues = new EventEmitter();
     label;
     valuesSelected = [];
+    ids = [];
+    parents = [];
+    isObject = false;
+
     constructor() {
     }
 
     ngOnInit() {
         this.valuesSelected.length = 0;
         this.label = this.customLabel;
+        if (typeof this.values[0] === 'object') {
+            this.isObject = true;
+            this.values.forEach(element => {
+                this.ids.push(element.$id);
+                if (this.labels.indexOf(element.$label) === -1) {
+                    this.labels.push(element.$label);
+                }
+                if (this.parents.indexOf(element.$parent) === -1) {
+                    this.parents.push(element.$parent);
+                }
+            });
+        } else {
+            if (this.labels.length === 0) {
+                this.labels = this.values;
+            }
+        }
         if (this.width) {
             this.listGroup.nativeElement.style.width = this.width;
         } else {
             this.listGroup.nativeElement.style.width = this.inputSelect.nativeElement.offsetWidth + 'px';
-        }
-        if (!this.labels) {
-            this.labels = this.values;
         }
         this.listGroup.nativeElement.style.maxHeight = this.maxHeight;
     }
@@ -85,5 +102,25 @@ export class MultiselectComponent implements OnInit  {
 
     onResize(event) {
         this.listGroup.nativeElement.style.width = this.inputSelect.nativeElement.offsetWidth + 'px';
+    }
+
+    isChildren(value, parent) {
+        const el = this.values.find(element => value === element.label);
+        if (el.$parent === parent) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    selectChildrens(parent) {
+        const padre = document.getElementById(parent);
+        for (let i = 0; i < padre.childNodes[2].childNodes.length; i++) {
+            if (padre.childNodes[2].childNodes[i].nodeName === 'LI') {
+                const event = document.createEvent('Event');
+                event.initEvent('click', false, true);
+                padre.childNodes[2].childNodes[i].dispatchEvent(event);
+            }
+        }
     }
 }

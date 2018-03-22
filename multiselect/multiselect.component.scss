@@ -32,6 +32,8 @@
     border-top: none;
     border-bottom: none;
     border-right: 1px solid rgba(0,0,0,.125);
+    cursor: pointer;
+    overflow: hidden;
 }
 .list-group-item:last-child {
     margin-bottom: 0;
@@ -49,4 +51,22 @@
 }
 input:read-only{
     background-color: white;
+}
+.sublist-group{
+    padding-left: 10px;
+    list-style: none;
+}
+.sublist-group-item {
+    position: relative;
+    display: block;
+    padding: .35rem 0;
+    margin-bottom: -1px;
+    text-align: center;
+    background-color: #fff;
+    border-left: 1px solid rgba(0,0,0,.125);
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid rgba(0,0,0,.125);
+    cursor: pointer;
+    overflow: hidden;
 }
