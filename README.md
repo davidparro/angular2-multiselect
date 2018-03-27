@@ -5,3 +5,6 @@ Browsers support:
 * Firefox 59+
 * Edge 41+
 * IE 11
+
+Parameter name | Type | Description
+-------------- | ---- | -----------
