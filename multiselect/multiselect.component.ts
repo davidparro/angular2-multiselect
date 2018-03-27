@@ -63,7 +63,7 @@ export class MultiselectComponent implements OnInit  {
     }
 
     selectValue(value) {
-        if (this.valuesSelected.find(valueSelected => value === valueSelected)) {
+        if ( this.valuesSelected.find(valueSelected => value === valueSelected) ) {
             const index = this.valuesSelected.indexOf(value);
             this.valuesSelected.splice(index, 1);
             document.getElementById(value).style.background = this.backgroundRemoved;
@@ -75,7 +75,7 @@ export class MultiselectComponent implements OnInit  {
         }
         if (this.valuesSelected.length > 0) {
             this.label = '';
-            this.valuesSelected.forEach((element, index) => {
+            this.valuesSelected.forEach( (element, index) => {
                 if (this.valuesSelected.length <= this.maxLabelItems) {
                     if (index === 0) {
                         this.label += element;
@@ -85,15 +85,17 @@ export class MultiselectComponent implements OnInit  {
                 } else {
                     this.label = (index + 1) + ' ' + this.customMaxLabel;
                 }
-            });
+            } );
         } else {
             this.label = this.customLabel;
+            this.inputSelect.nativeElement.value = null;
         }
+        console.log(this.valuesSelected.length);
         this.sendValues.emit(this.valuesSelected);
     }
 
     checkValue(value) {
-        if (this.valuesSelected.find(valueSelected => value === valueSelected)) {
+        if ( this.valuesSelected.find(valueSelected => value === valueSelected) ) {
             return true;
         } else {
             return false;
@@ -106,7 +108,7 @@ export class MultiselectComponent implements OnInit  {
 
     isChildren(value, parent) {
         const el = this.values.find(element => value === element.label);
-        if (el.$parent === parent) {
+        if ( el.$parent === parent ) {
             return true;
         } else {
             return false;
