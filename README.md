@@ -7,7 +7,7 @@
 * Firefox 59+
 * Edge 41+
 * IE 10+
-<details>
+</details>
 
 
 
