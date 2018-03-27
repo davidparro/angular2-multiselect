@@ -12,9 +12,6 @@
 </details>
 
 
-<details open>
-<summary>Paramters list</summary>
-<br>
 Parameter name | Type | Required | Default | Description
 -------------- | ---- | -------- | ------- | -----------
 values | Array | Required | null | Array of values for select options 
@@ -28,4 +25,4 @@ backgroundSelected | String | Optional | 'rgb(183, 255, 115)' | Background of op
 backgroundRemoved | String | Optional | 'white' | Background of option removed
 colorSelected | String | Optional | 'inherit' | Color of option selected
 colorRemoved | String | Optional | 'inherit' | Color of option removed
-  </details>
+
