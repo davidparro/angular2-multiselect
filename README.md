@@ -1,10 +1,15 @@
 # angular2-multiselect
 
-Browsers support:
+<details open>
+<summary>Browsers support:</summary>
+<br>
 * Chrome 65+
 * Firefox 59+
 * Edge 41+
 * IE 10+
+<details>
+
+
 
 Parameter name | Type | Required | Default | Description
 -------------- | ---- | -------- | ------- | -----------
