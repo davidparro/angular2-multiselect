@@ -3,10 +3,12 @@
 <details open>
 <summary>Browsers support:</summary>
 <br>
-* Chrome 65+
-* Firefox 59+
-* Edge 41+
-* IE 10+
+  <ul>
+    <li>Chrome 65+</li>
+    <li>Firefox 59+</li>
+    <li>Edge 41+</li>
+    <li>IE 10+</li>
+  </ul>
 </details>
 
 
