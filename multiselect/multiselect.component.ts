@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-multiselect',
@@ -17,6 +17,7 @@ export class MultiselectComponent implements OnInit  {
     @Input('backgroundRemoved') backgroundRemoved = 'white'; // Background of option removed
     @Input('colorSelected') colorSelected = 'inherit'; // Color of option selected
     @Input('colorRemoved') colorRemoved = 'inherit'; // Color of option removed
+    @Input('popOver') popOver; // Color of option removed
     @ViewChild('listGroup') listGroup: ElementRef;
     @ViewChild('inputSelect') inputSelect: ElementRef;
     @ViewChild('selectBackdrop') selectBackdrop: ElementRef;
@@ -55,14 +56,31 @@ export class MultiselectComponent implements OnInit  {
             this.listGroup.nativeElement.style.width = this.inputSelect.nativeElement.offsetWidth + 'px';
         }
         this.listGroup.nativeElement.style.maxHeight = this.maxHeight;
+        document.body.onclick = function () {
+            const listas = document.getElementsByClassName('list-container');
+            for (let index = 0; index < listas.length; index++) {
+                const element = listas[index];
+                if (!element.classList.contains('hide')) {
+                    element.classList.add('hide');
+                }
+            }
+        };
     }
 
-    toggleShow() {
-        this.listGroup.nativeElement.classList.toggle('hide');
-        this.selectBackdrop.nativeElement.classList.toggle('hide');
+    toggleShow(event) {
+        setTimeout(() => {
+            this.listGroup.nativeElement.classList.toggle('hide');
+        });
     }
 
-    selectValue(value) {
+    selectValue(value, event: Event) {
+        if (!event) {
+            window.event.stopPropagation();
+            window.event.stopImmediatePropagation();
+        } else {
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+        }
         if ( this.valuesSelected.find(valueSelected => value === valueSelected) ) {
             const index = this.valuesSelected.indexOf(value);
             this.valuesSelected.splice(index, 1);
@@ -86,11 +104,11 @@ export class MultiselectComponent implements OnInit  {
                     this.label = (index + 1) + ' ' + this.customMaxLabel;
                 }
             } );
+            this.inputSelect.nativeElement.value = this.label;
         } else {
             this.label = this.customLabel;
             this.inputSelect.nativeElement.value = null;
         }
-        console.log(this.valuesSelected.length);
         this.sendValues.emit(this.valuesSelected);
     }
 
@@ -115,13 +133,20 @@ export class MultiselectComponent implements OnInit  {
         }
     }
 
-    selectChildrens(parent) {
+    selectChildrens(parent, event: Event) {
+        if (!event) {
+            window.event.stopPropagation();
+            window.event.stopImmediatePropagation();
+        } else {
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+        }
         const padre = document.getElementById(parent);
         for (let i = 0; i < padre.childNodes[2].childNodes.length; i++) {
             if (padre.childNodes[2].childNodes[i].nodeName === 'LI') {
-                const event = document.createEvent('Event');
-                event.initEvent('click', false, true);
-                padre.childNodes[2].childNodes[i].dispatchEvent(event);
+                const childEvent = document.createEvent('Event');
+                childEvent.initEvent('click', false, true);
+                padre.childNodes[2].childNodes[i].dispatchEvent(childEvent);
             }
         }
     }

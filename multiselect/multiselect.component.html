@@ -1,11 +1,11 @@
 <div>
-    <input readonly (window:resize)="onResize($event)" [attr.placeholder]="label" #inputSelect (click)="toggleShow()" class="form-control" type="text" [attr.value]="this.valuesSelected.length > 0 ? label : null">
-    <div #listGroup class="mh300px list-container hide">
+    <input readonly (window:resize)="onResize($event)" [attr.placeholder]="label" #inputSelect (click)="toggleShow($event)" class="form-control" type="text" [attr.value]="this.valuesSelected.length > 0 ? label : null">
+    <div #listGroup class="mh300px list-container hide animated">
         <ul *ngIf="isObject" class="list-group">
-            <li *ngFor="let parent of parents" [id]="parent" class="list-group-item"><span (click)="selectChildrens(parent)">{{parent}}</span>
+            <li *ngFor="let parent of parents" [id]="parent" class="list-group-item"><span (click)="selectChildrens(parent, $event)">{{parent}}</span>
                 <ul class="sublist-group">
                     <ng-container *ngFor="let value of labels;let i = index">
-                        <li *ngIf="isChildren(value, parent)" [id]="value" (click)="selectValue(value)" class="list-group-item sublist-group-item">{{value}}</li>
+                        <li *ngIf="isChildren(value, parent)" [id]="value" (click)="selectValue(value, $event)" class="list-group-item sublist-group-item">{{value}}</li>
                     </ng-container>
                 </ul>
             </li>
@@ -15,4 +15,3 @@
         </ul>
     </div>
 </div>
-<div #selectBackdrop (click)="toggleShow()" class="select-backdrop hide"></div>
